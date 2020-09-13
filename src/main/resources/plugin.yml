@@ -3,8 +3,10 @@ main: "${project.groupId}.Main"
 version: "${project.version}"
 description: "${project.description} Coming Soon."
 author: "Ezenity"
+depend: [Citizens]
+softdepend: []
+
 api-version: "1.15"
-depend: []
 
 commads:
   yougotmail:
