@@ -1,6 +1,8 @@
 package com.ezenity.yougotmail.configuration;
 
 import com.ezenity.yougotmail.Main;
+import java.util.HashMap;
+import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -118,6 +120,27 @@ public class Lang {
         for (String part : colorize(message).split("\n")) {
             Bukkit.getOnlinePlayers().forEach(recipient -> recipient.sendMessage(part));
             Bukkit.getConsoleSender().sendMessage(part);
+        }
+    }
+
+    /**
+     * Send List Message
+     *
+     * This will send a message to the recipient. This is an option to display your message in a list format within your config. Messages
+     * will be outputted in color
+     *
+     * @param sender get recipient
+     * @param message message to send
+     * @param replacements get each list of strings for message
+     */
+    public static void sendStringListMessage(CommandSender sender, List<String> message, HashMap<String, String> replacements) {
+        for (String string : message) {
+            if (replacements != null) {
+                for (String replace : replacements.keySet()) {
+                    string = string.replace(replace, replacements.get(replace));
+                }
+            }
+            sender.sendMessage(colorize(string));
         }
     }
 }
