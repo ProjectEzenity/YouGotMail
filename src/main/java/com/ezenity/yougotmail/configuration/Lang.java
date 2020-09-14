@@ -1,6 +1,7 @@
 package com.ezenity.yougotmail.configuration;
 
 import com.ezenity.yougotmail.Main;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.bukkit.Bukkit;
@@ -76,6 +77,24 @@ public class Lang {
     }
 
     /**
+     * Colorize a string list.
+     *
+     * This method is utilized for colorizing the text of messages in a list.
+     *
+     * @param str string to colorize
+     * @return a colorized string list
+     */
+    private static List<String> colorizeListString(List<String> str) {
+        final List<String> string = new ArrayList<>();
+        if (str != null) {
+            for (String s : str) {
+                string.add(colorize(s));
+            }
+        }
+        return string;
+    }
+
+    /**
      * This method will reload the language file and its contents. If there is no language
      * file, then a default language file will be generated and then will load the language
      * file. The comments that are set within the language file will also not be overwritten.
@@ -109,21 +128,6 @@ public class Lang {
     }
 
     /**
-     * Broadcast message.
-     * <p>
-     * This will broadcast a message to every recipient to the server along with console. Messages are also colorized and can
-     * add new lines with '\n' inputted at end of line.
-     *
-     * @param message message to broadcast
-     */
-    public static void broadcast(String message) {
-        for (String part : colorize(message).split("\n")) {
-            Bukkit.getOnlinePlayers().forEach(recipient -> recipient.sendMessage(part));
-            Bukkit.getConsoleSender().sendMessage(part);
-        }
-    }
-
-    /**
      * Send List Message
      *
      * This will send a message to the recipient. This is an option to display your message in a list format within your config. Messages
@@ -141,6 +145,21 @@ public class Lang {
                 }
             }
             sender.sendMessage(colorize(string));
+        }
+    }
+
+    /**
+     * Broadcast message.
+     * <p>
+     * This will broadcast a message to every recipient to the server along with console. Messages are also colorized and can
+     * add new lines with '\n' inputted at end of line.
+     *
+     * @param message message to broadcast
+     */
+    public static void broadcast(String message) {
+        for (String part : colorize(message).split("\n")) {
+            Bukkit.getOnlinePlayers().forEach(recipient -> recipient.sendMessage(part));
+            Bukkit.getConsoleSender().sendMessage(part);
         }
     }
 }
