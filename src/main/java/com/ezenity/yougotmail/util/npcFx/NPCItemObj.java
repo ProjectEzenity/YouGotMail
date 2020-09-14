@@ -1,4 +1,4 @@
-package com.ezenity.yougotmail.util.fx;
+package com.ezenity.yougotmail.util.npcFx;
 
 import org.bukkit.inventory.ItemStack;
 

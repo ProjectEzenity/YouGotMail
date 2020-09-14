@@ -1,0 +1,26 @@
+Create NPC (Vendor NPC)
+ - This NPC will give a player an item (envelope) when interacted with
+ - - Use hashmap for giving player items to save in memory
+
+Item player receives
+ - Can be accessed by right clicking the item
+ - - Use SmartInvs for the custom inventory
+ - Item can store other items like a backpack
+ - - Use hashmap to store items into memory
+ - Add button in inventory to confirm that the envelope is completed
+ - - Simple if statements (or even switch case)
+ - Once confirmed and sealed (Confirm button seals envelope) can create custom name
+ - - Player right clicks again which will allow user to give custom name
+ - - - Could also make player name it after they click the confirm button (Info displayed in chat)
+
+MailBox
+ - Player head is the mailbox
+ - - Player must be available (Already visited the server), maybe?
+ - Create own command for creating a mailbox
+ - - Mailbox will be create at specified location
+ - - - The player head will be spawned there which will hold the envelopes
+
+Notifications
+ - Player joins a server with a notification whether their mailbox is empty or not
+
+

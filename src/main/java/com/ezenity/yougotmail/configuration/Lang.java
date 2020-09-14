@@ -65,7 +65,7 @@ public class Lang {
      * @param str String to colorize
      * @return Return a colorized string
      */
-    private static String colorize(String str) {
+    public static String colorize(String str) {
         if (str == null) {
             return "";
         }
@@ -84,7 +84,7 @@ public class Lang {
      * @param str string to colorize
      * @return a colorized string list
      */
-    private static List<String> colorizeListString(List<String> str) {
+    public static List<String> colorizeListString(List<String> str) {
         final List<String> string = new ArrayList<>();
         if (str != null) {
             for (String s : str) {

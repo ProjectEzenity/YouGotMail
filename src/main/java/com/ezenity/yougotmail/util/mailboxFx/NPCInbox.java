@@ -8,7 +8,7 @@ import java.util.HashMap;
  * <p>
  * This is the class for the mailbox's inbox.
  */
-public abstract class MailboxInbox {
+public abstract class NPCInbox {
     /**
      * NPC Hashmap. Will store in memory for now.
      */
