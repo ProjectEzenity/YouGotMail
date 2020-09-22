@@ -16,46 +16,50 @@ import java.io.File;
  * YouGotMail Language Class
  *
  * Here you will find all the language options
+ *
+ * @author Ezenity
+ * @version 0.0.2
+ * @since 0.0.1
  */
 public class Lang {
     /**
-     * This is the header file for YouGotMail Language. This will be displayed as a comment above all
-     * the settings regardless of what was inputted.
+     * Initialize plugin instance. we use this to initialize the config file.
      */
-    private static final String HEADER = "Main language file for YouGotMail";
+    private final Main plugin;
 
-    public static String COMMAND_NO_PERMISSION;
-    public static String DISABLED_COMMAND;
-    public static String PLAYER_COMMAND;
+    private Config config;
+    /**
+     * Language file. Gets the default set language file from the default config file.
+     */
+    private final String langFile;
+    /**
+     * Configuration File. Gets the default plugin folder and creates a new config file from the default provided config file with comments.
+     */
+    private final File configFile;// = new File(plugin.getDataFolder(), plugin.getConfig().getString("language-file"));
+    /**
+     * Config file configuration. This is used for creating the files settings general speaking.
+     */
+    private FileConfiguration fileConfiguration;
+
+    public Lang(Main plugin, Config config) {
+        this.plugin = plugin;
+        this.config = config;
+        this.langFile = plugin.getConfig().getString("language-file");
+        this.configFile = new File(plugin.getDataFolder(), langFile);
+
+    }
 
     /**
      * This method is utilized for applying all the language settings. This allows us to grab any of these static variables and apply them
      * throughout the rest of the plugin.
      */
-    private static void init() {
-        COMMAND_NO_PERMISSION = config.getString("command.no-permission", "&4You do not have permission to use {getCommand}!");
-        DISABLED_COMMAND = config.getString("command.disabled","&cThe {getDisabledCommand} &cis disabled.");
-        PLAYER_COMMAND = config.getString("command.player","&4This command is only available to players!");
+    private void init() {
+        reload();
+
+        fileConfiguration.getString("command.no-permission", "&4You do not have permission to use {getCommand}!");
+        fileConfiguration.getString("command.disabled","&cThe {getDisabledCommand} &cis disabled.");
+        fileConfiguration.getString("command.player","&4This command is only available to players!");
     }
-
-
-    // ############################  DO NOT EDIT BELOW THIS LINE  ############################
-    /**
-     * Initialize plugin instance. we use this to initialize the config file.
-     */
-    private static final Main plugin = Main.getInstance();
-    /**
-     * Language file. Gets the default set language file from the default config file.
-     */
-    private static final String langFile = Config.LANGUAGE_FILE;
-    /**
-     * Configuration File. Gets the default plugin folder and creates a new config file from the default provided config file with comments.
-     */
-    private static final File configFile = new File(plugin.getDataFolder(), langFile);;
-    /**
-     * Config file configuration. This is used for creating the files settings general speaking.
-     */
-    private static FileConfiguration config;
 
     /**
      * Colorize a string.
@@ -65,7 +69,7 @@ public class Lang {
      * @param str String to colorize
      * @return Return a colorized string
      */
-    public static String colorize(String str) {
+    public String colorize(String str) {
         if (str == null) {
             return "";
         }
@@ -84,7 +88,7 @@ public class Lang {
      * @param str string to colorize
      * @return a colorized string list
      */
-    public static List<String> colorizeListString(List<String> str) {
+    public List<String> colorizeListString(List<String> str) {
         final List<String> string = new ArrayList<>();
         if (str != null) {
             for (String s : str) {
@@ -99,13 +103,18 @@ public class Lang {
      * file, then a default language file will be generated and then will load the language
      * file. The comments that are set within the language file will also not be overwritten.
      */
-    public static void reload() {
+    public void reload() {
         if (!configFile.exists()) {
             plugin.saveResource(langFile, false);
         }
-        config = YamlConfiguration.loadConfiguration(configFile);
-        config.options().header(HEADER);
-        Lang.init();
+        fileConfiguration = YamlConfiguration.loadConfiguration(configFile);
+        /**
+         * This is the header file for YouGotMail Language. This will be displayed as a comment above all
+         * the settings regardless of what was inputted.
+         */
+        String HEADER = "Main language file for YouGotMail";
+        fileConfiguration.options().header(HEADER);
+        init();
     }
 
     /**
@@ -117,7 +126,7 @@ public class Lang {
      * @param recipient Recipient of message
      * @param message   Message to send
      */
-    public static void send(CommandSender recipient, String message) {
+    public void send(CommandSender recipient, String message) {
         if (recipient != null) {
             for (String part : colorize(message).split("\n")) {
                 if (part != null && !part.isEmpty()) {
@@ -137,7 +146,7 @@ public class Lang {
      * @param message message to send
      * @param replacements get each list of strings for message
      */
-    public static void sendStringListMessage(CommandSender sender, List<String> message, HashMap<String, String> replacements) {
+    public void sendStringListMessage(CommandSender sender, List<String> message, HashMap<String, String> replacements) {
         for (String string : message) {
             if (replacements != null) {
                 for (String replace : replacements.keySet()) {
@@ -156,7 +165,7 @@ public class Lang {
      *
      * @param message message to broadcast
      */
-    public static void broadcast(String message) {
+    public void broadcast(String message) {
         for (String part : colorize(message).split("\n")) {
             Bukkit.getOnlinePlayers().forEach(recipient -> recipient.sendMessage(part));
             Bukkit.getConsoleSender().sendMessage(part);

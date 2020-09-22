@@ -2,27 +2,20 @@ package com.ezenity.yougotmail;
 
 import com.ezenity.yougotmail.configuration.Config;
 import com.ezenity.yougotmail.configuration.Lang;
-import com.ezenity.yougotmail.util.Logger;
+import com.ezenity.yougotmail.mailboxFx.MailboxAPI;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * YouGotMail Main Plugin Class
  *
  * @author Ezenity
- * @version v0.0.1
+ * @version 0.0.2
+ * @since 0.0.1
  */
 public class Main extends JavaPlugin {
-    /**
-     * Main instance. Create an instance of this plugin.
-     */
-    private static Main instance;
-
-    /**
-     * Constructor Instance of the main class.
-     */
-    private Main() {
-        instance = this;
-    }
+    private final Config config = new Config(this);
+    private final Lang lang = new Lang(this, config);
+    private MailboxAPI mailboxAPI;
 
     /**
      * This method is invoked when the plugin is enabled. When plugin is enabled, the config is reload,
@@ -30,10 +23,9 @@ public class Main extends JavaPlugin {
      */
     @Override
     public void onEnable() {
-        Config.reload();
-        Lang.reload();
-
-        Logger.info(getName() + " v" + getInstance().getDescription().getVersion() + " enabled!");
+        mailboxAPI = new MailboxAPI();
+        config.reload();
+        lang.reload();
     }
 
     /**
@@ -41,16 +33,9 @@ public class Main extends JavaPlugin {
      * to console that it has been disabled.
      */
     @Override
-    public void onDisable() {
-        Logger.info(getName() + " disabled!");
-    }
+    public void onDisable() { }
 
-    /**
-     * Gets the plugin instance of the main class.
-     *
-     * @return main plugin instance.
-     */
-    public static Main getInstance() {
-        return instance;
+    public MailboxAPI getMailboxAPI() {
+        return mailboxAPI;
     }
 }

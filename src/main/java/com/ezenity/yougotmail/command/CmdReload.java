@@ -3,7 +3,7 @@ package com.ezenity.yougotmail.command;
 import com.ezenity.yougotmail.Main;
 import com.ezenity.yougotmail.configuration.Config;
 import com.ezenity.yougotmail.configuration.Lang;
-import com.ezenity.yougotmail.util.Logger;
+import java.util.logging.Level;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -19,12 +19,24 @@ import java.util.List;
  *     <li>Config</li>
  *     <li>Lang</li>
  * </ul>
+ *
+ * @author Ezenity
+ * @version 0.0.2
+ * @since  0.0.1
  */
 public class CmdReload implements TabExecutor {
     /**
      * Plugin instance. Initialize the plugin instance.
      */
     private final Main plugin;
+    /**
+     * Config variable. This variable is used for reloading the configuration file.
+     */
+    private final Config config;
+    /**
+     * Lang variable. this variable is used for reload the language file and obtaining its contents.
+     */
+    private final Lang lang;
     /**
      * String message. Used for outputting the current state of the reloaded files.
      */
@@ -34,9 +46,12 @@ public class CmdReload implements TabExecutor {
      * Constructor. Initializing the plugin object.
      *
      * @param plugin load instance of plugin
+     * @param config load instance of config
      */
-    public CmdReload(Main plugin) {
+    public CmdReload(Main plugin, Config config, Lang lang) {
         this.plugin = plugin;
+        this.config = config;
+        this.lang = lang;
     }
 
     /**
@@ -74,21 +89,20 @@ public class CmdReload implements TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("command.yougotmail.reload")) {
-            Lang.send(sender, Lang.COMMAND_NO_PERMISSION
-            .replace("{getCommand}", "Reload"));
-            Logger.error(sender.getName() + " tried to reload " + plugin.getName() + " v" + plugin.getDescription().getVersion() + " but had no permissions to.");
+            sender.sendMessage("No permission to command");
+            plugin.getLogger().log(Level.WARNING, sender.getName() + " tried to reload " + plugin.getName() + " v" + plugin.getDescription().getVersion() + " but had no permissions to.");
             return true;
         }
 
         if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
-            Config.reload();
-            Lang.reload();
+            config.reload();
+            lang.reload();
             msg = plugin.getName() + " v" + plugin.getDescription().getVersion();
             msg += " reload";
-            Logger.info(plugin.getName() + " v" + plugin.getDescription().getVersion() + " was reloaded by " + sender.getName());
+            plugin.getLogger().log(Level.INFO, plugin.getName() + " v" + plugin.getDescription().getVersion() + " was reloaded by " + sender.getName());
         }
 
-        Lang.send(sender, msg);
+        lang.send(sender, msg);
 
         return true;
     }

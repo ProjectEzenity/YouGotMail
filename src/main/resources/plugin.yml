@@ -3,7 +3,7 @@ main: "${project.groupId}.Main"
 version: "${project.version}"
 description: "${project.description} Coming Soon."
 author: "Ezenity"
-depend: [Citizens, Sentinel]
+depend: []
 softdepend: []
 
 api-version: "1.15"
