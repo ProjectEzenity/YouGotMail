@@ -1,5 +1,6 @@
 package com.ezenity.yougotmail;
 
+import com.ezenity.yougotmail.command.CmdReload;
 import com.ezenity.yougotmail.configuration.Config;
 import com.ezenity.yougotmail.configuration.Lang;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,6 +24,8 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         config.reload();
         lang.reload();
+
+        getCommand("yougotmail").setExecutor(new CmdReload(this, config, lang));
     }
 
     /**
