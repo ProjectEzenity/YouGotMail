@@ -9,10 +9,10 @@ import java.util.UUID;
  * This is the class for the mailboxes.
  *
  * @author Ezenity
- * @version 0.0.2
+ * @version 0.0.3
  * @since 0.0.1
  */
-public class MailboxTracker {
+public class Tracker {
     /**
      * NPC Hashmap. Will store in memory for now.
      */
@@ -23,7 +23,7 @@ public class MailboxTracker {
      *
      * @param mailbox mailbox to be set
      */
-    public void registerMailbox(Mailbox mailbox) {
+    public void registerTracker(Mailbox mailbox) {
         if (mailbox != null) {
             MAILBOX.put(mailbox.getIdentifier(), mailbox);
         }
@@ -34,7 +34,7 @@ public class MailboxTracker {
      *
      * @param mailbox mailbox to be removed
      */
-    public void unregisterMailbox(Mailbox mailbox) {
+    public void unregisterTracker(Mailbox mailbox) {
         if (mailbox != null) {
             MAILBOX.remove(mailbox.getIdentifier());
         }
@@ -42,12 +42,12 @@ public class MailboxTracker {
 
     /**
      * This method will get the mailbox that is uniquely identified with
-     * the given mailboxIdentifier.
+     * the given registeredIdentifier.
      *
-     * @param mailboxIdentifier mailboxIdentifier
+     * @param registeredIdentifier registeredIdentifier
      * @return unique mailbox
      */
-    public Mailbox getMailbox(UUID mailboxIdentifier) {
-        return MAILBOX.getOrDefault(mailboxIdentifier, null);
+    public Mailbox getRegisteredTracker(UUID registeredIdentifier) {
+        return MAILBOX.getOrDefault(registeredIdentifier, null);
     }
 }

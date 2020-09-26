@@ -37,10 +37,6 @@ public class CmdReload implements TabExecutor {
      * Lang variable. this variable is used for reload the language file and obtaining its contents.
      */
     private final Lang lang;
-    /**
-     * String message. Used for outputting the current state of the reloaded files.
-     */
-    private String msg;
 
     /**
      * Constructor. Initializing the plugin object.
@@ -97,12 +93,10 @@ public class CmdReload implements TabExecutor {
         if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
             config.reload();
             lang.reload();
-            msg = plugin.getName() + " v" + plugin.getDescription().getVersion();
-            msg += " reload";
             plugin.getLogger().log(Level.INFO, plugin.getName() + " v" + plugin.getDescription().getVersion() + " was reloaded by " + sender.getName());
         }
 
-        lang.send(sender, msg);
+        lang.send(sender, plugin.getName() + " v" + plugin.getDescription().getVersion() + " reloaded");
 
         return true;
     }

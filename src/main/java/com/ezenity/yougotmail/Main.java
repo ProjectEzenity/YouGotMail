@@ -2,7 +2,6 @@ package com.ezenity.yougotmail;
 
 import com.ezenity.yougotmail.configuration.Config;
 import com.ezenity.yougotmail.configuration.Lang;
-import com.ezenity.yougotmail.mailboxFx.MailboxAPI;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -15,7 +14,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
     private final Config config = new Config(this);
     private final Lang lang = new Lang(this, config);
-    private MailboxAPI mailboxAPI;
 
     /**
      * This method is invoked when the plugin is enabled. When plugin is enabled, the config is reload,
@@ -23,7 +21,6 @@ public class Main extends JavaPlugin {
      */
     @Override
     public void onEnable() {
-        mailboxAPI = new MailboxAPI();
         config.reload();
         lang.reload();
     }
@@ -34,8 +31,4 @@ public class Main extends JavaPlugin {
      */
     @Override
     public void onDisable() { }
-
-    public MailboxAPI getMailboxAPI() {
-        return mailboxAPI;
-    }
 }
