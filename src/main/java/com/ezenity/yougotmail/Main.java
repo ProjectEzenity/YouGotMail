@@ -9,7 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * YouGotMail Main Plugin Class
  *
  * @author Ezenity
- * @version 0.0.2
+ * @version 0.0.3
  * @since 0.0.1
  */
 public class Main extends JavaPlugin {
@@ -25,7 +25,7 @@ public class Main extends JavaPlugin {
         config.reload();
         lang.reload();
 
-        getCommand("yougotmail").setExecutor(new CmdReload(this, config, lang));
+        getCommand("yougotmail").setExecutor(new CmdReload(config, lang));
     }
 
     /**
