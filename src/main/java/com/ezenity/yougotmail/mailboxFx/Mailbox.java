@@ -1,7 +1,11 @@
 package com.ezenity.yougotmail.mailboxFx;
 
 import com.ezenity.yougotmail.util.CustomInventory;
+import com.mysql.fabric.xmlrpc.base.Array;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -26,9 +30,8 @@ public class Mailbox extends Tracker {
     /**
      * ItemStack Hashmap. This hash will key to a mailbox and value any items linked to the specified mailbox.
      */
-    private HashMap<Mailbox, ItemStack[]> itemStackHashMap;
-
-
+//    private HashMap<Mailbox, ItemStack[]> itemStackHashMap;
+    private List<ItemStack> itemStackList;
 
     /**
      * Mailbox. Create a custom mailbox for the given player and provide its contents into a hashmap.
@@ -59,22 +62,40 @@ public class Mailbox extends Tracker {
         return inventory;
     }
 
+//    /**
+//     * Get the list of itemStacks that are within the mailbox
+//     *
+//     * @return all items inside mailbox
+//     */
+//    public HashMap<Mailbox, ItemStack[]> getItemStackHashMap() {
+//        return itemStackHashMap;
+//    }
+//
+//    /**
+//     * Set an itemStack into a given mailbox.
+//     *
+//     * @param itemStackHashMap set itemStack to mailbox
+//     */
+//    public void setItemStackHashMap(HashMap<Mailbox, ItemStack[]> itemStackHashMap) {
+//        this.itemStackHashMap = itemStackHashMap;
+//    }
+
     /**
-     * Get the list of itemStacks that are within the mailbox
+     * Ge the list of itemStacks that are within the mailbox as a list.
      *
-     * @return all items inside mailbox
+     * @return list of itemStacks
      */
-    public HashMap<Mailbox, ItemStack[]> getItemStackHashMap() {
-        return itemStackHashMap;
+    public List<ItemStack> getItemStackList() {
+        return itemStackList;
     }
 
     /**
-     * Set an itemStack into a given mailbox.
+     * Set an itemStack into a given mailbox as a list.
      *
-     * @param itemStackHashMap set itemStack to mailbox
+     * @param itemStackList set list of itemStacks to mailbox
      */
-    public void setItemStackHashMap(HashMap<Mailbox, ItemStack[]> itemStackHashMap) {
-        this.itemStackHashMap = itemStackHashMap;
+    public void setItemStackList(List<ItemStack> itemStackList) {
+        this.itemStackList = itemStackList;
     }
 
     /**
@@ -101,17 +122,20 @@ public class Mailbox extends Tracker {
 
     /**
      * Open Mailbox. This method will check for the mailbox identifier and get the items from the
-     * itemStack hashMap.
+     * itemStack list. After the itemStacks are set to the looking mailbox, the players opened
+     * top inventory will update to ensure the itemStacks are set.
      *
      * @param player get the player who clicked the mailbox
      * @param mailbox get mailbox that was clicked with its contents
      */
     public void openMailbox(Player player, Mailbox mailbox) {
         if (getRegisteredMailbox().containsKey(getIdentifier())) {
-            player.getInventory().setContents(getItemStackHashMap().get(mailbox));
+//            player.getInventory().setContents(getItemStackHashMap().get(mailbox));
+            mailbox.getInventory().getTopInventory().setContents((ItemStack[]) getItemStackList().toArray());
+//            player.getInventory().setContents((ItemStack[]) getItemStackList().toArray());
         }
 
-        player.updateInventory();
+        player.updateInventory(); // Not sure if this is needed
     }
 
     /**
