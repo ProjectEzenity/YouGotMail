@@ -12,7 +12,7 @@ import java.util.UUID;
  * @version 0.0.3
  * @since 0.0.1
  */
-public class Tracker {
+public class MailboxTracker {
     /**
      * NPC Hashmap. Will store in memory for now.
      */

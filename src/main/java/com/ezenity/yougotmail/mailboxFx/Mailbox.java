@@ -1,10 +1,6 @@
 package com.ezenity.yougotmail.mailboxFx;
 
 import com.ezenity.yougotmail.util.CustomInventory;
-import com.mysql.fabric.xmlrpc.base.Array;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 import org.bukkit.entity.Player;
@@ -18,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
  * @version 0.0.3
  * @since 0.0.1
  */
-public class Mailbox extends Tracker {
+public class Mailbox extends MailboxTracker {
     /**
      * Gets the custom inventory created for a mailbox
      */
