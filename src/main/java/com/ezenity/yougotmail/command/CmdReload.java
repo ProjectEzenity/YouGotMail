@@ -1,13 +1,15 @@
 package com.ezenity.yougotmail.command;
 
-import com.ezenity.yougotmail.Main;
+import static org.bukkit.Bukkit.getLogger;
+
 import com.ezenity.yougotmail.configuration.Config;
 import com.ezenity.yougotmail.configuration.Lang;
-import java.util.logging.Level;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 
+import java.util.logging.Level;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,14 +23,10 @@ import java.util.List;
  * </ul>
  *
  * @author Ezenity
- * @version 0.0.2
+ * @version 0.0.3
  * @since  0.0.1
  */
 public class CmdReload implements TabExecutor {
-    /**
-     * Plugin instance. Initialize the plugin instance.
-     */
-    private final Main plugin;
     /**
      * Config variable. This variable is used for reloading the configuration file.
      */
@@ -41,11 +39,9 @@ public class CmdReload implements TabExecutor {
     /**
      * Constructor. Initializing the plugin object.
      *
-     * @param plugin load instance of plugin
      * @param config load instance of config
      */
-    public CmdReload(Main plugin, Config config, Lang lang) {
-        this.plugin = plugin;
+    public CmdReload(Config config, Lang lang) {
         this.config = config;
         this.lang = lang;
     }
@@ -86,17 +82,17 @@ public class CmdReload implements TabExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("command.yougotmail.reload")) {
             sender.sendMessage("No permission to command");
-            plugin.getLogger().log(Level.WARNING, sender.getName() + " tried to reload the plugin but had no permissions to.");
+            getLogger().log(Level.WARNING, sender.getName() + " tried to reload the plugin but had no permissions to.");
             return true;
         }
 
         if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
             config.reload();
             lang.reload();
-            plugin.getLogger().log(Level.INFO, "The plugin was reloaded by " + sender.getName());
+            getLogger().log(Level.INFO, "The plugin was reloaded by " + sender.getName());
         }
 
-        lang.send(sender, plugin.getName() + " v" + plugin.getDescription().getVersion() + " reloaded");
+        lang.send(sender, "Reloaded Reach.");
 
         return true;
     }
