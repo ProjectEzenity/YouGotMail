@@ -141,7 +141,7 @@ public class Mailbox extends MailboxTracker {
      * @return mailbox with contents or null if no mailbox with given string title
      */
     public Mailbox getMailboxFromTitle(@NotNull String title) {
-        for (Mailbox mailbox : MAILBOX.values()) {
+        for (Mailbox mailbox : mailbox.values()) {
             if (mailbox.getInventory().getTitle().equals(title))
                 return mailbox;
         }

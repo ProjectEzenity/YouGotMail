@@ -16,7 +16,7 @@ public class MailboxTracker {
     /**
      * NPC Hashmap. Will store in memory for now.
      */
-    public final HashMap<UUID, Mailbox> MAILBOX = new HashMap<>();
+    public final HashMap<UUID, Mailbox> mailbox = new HashMap<>();
 
     /**
      * This method will register the mailbox.
@@ -25,7 +25,7 @@ public class MailboxTracker {
      */
     public void registerTracker(Mailbox mailbox) {
         if (mailbox != null) {
-            MAILBOX.put(mailbox.getIdentifier(), mailbox);
+            this.mailbox.put(mailbox.getIdentifier(), mailbox);
         }
     }
 
@@ -36,7 +36,7 @@ public class MailboxTracker {
      */
     public void unregisterTracker(Mailbox mailbox) {
         if (mailbox != null) {
-            MAILBOX.remove(mailbox.getIdentifier());
+            this.mailbox.remove(mailbox.getIdentifier());
         }
     }
 
@@ -48,6 +48,6 @@ public class MailboxTracker {
      * @return unique mailbox
      */
     public Mailbox getRegisteredTracker(UUID registeredIdentifier) {
-        return MAILBOX.getOrDefault(registeredIdentifier, null);
+        return mailbox.getOrDefault(registeredIdentifier, null);
     }
 }
