@@ -129,22 +129,13 @@ public class Mailbox extends Tracker {
      * @param mailbox get mailbox that was clicked with its contents
      */
     public void openMailbox(Player player, Mailbox mailbox) {
-        if (getRegisteredMailbox().containsKey(getIdentifier())) {
+        if (getRegisteredTracker(getIdentifier()) != null )  {
 //            player.getInventory().setContents(getItemStackHashMap().get(mailbox));
             mailbox.getInventory().getTopInventory().setContents((ItemStack[]) getItemStackList().toArray());
 //            player.getInventory().setContents((ItemStack[]) getItemStackList().toArray());
         }
 
         player.updateInventory(); // Not sure if this is needed
-    }
-
-    /**
-     * Get the registered hashmap linked to a mailbox.
-     *
-     * @return hashmap of a mailbox
-     */
-    public HashMap<UUID, Mailbox> getRegisteredMailbox() {
-        return MAILBOX;
     }
 
     /**
