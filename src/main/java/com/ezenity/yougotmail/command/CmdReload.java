@@ -86,14 +86,14 @@ public class CmdReload implements TabExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!sender.hasPermission("command.yougotmail.reload")) {
             sender.sendMessage("No permission to command");
-            plugin.getLogger().log(Level.WARNING, sender.getName() + " tried to reload " + plugin.getName() + " v" + plugin.getDescription().getVersion() + " but had no permissions to.");
+            plugin.getLogger().log(Level.WARNING, sender.getName() + " tried to reload the plugin but had no permissions to.");
             return true;
         }
 
         if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
             config.reload();
             lang.reload();
-            plugin.getLogger().log(Level.INFO, plugin.getName() + " v" + plugin.getDescription().getVersion() + " was reloaded by " + sender.getName());
+            plugin.getLogger().log(Level.INFO, "The plugin was reloaded by " + sender.getName());
         }
 
         lang.send(sender, plugin.getName() + " v" + plugin.getDescription().getVersion() + " reloaded");
