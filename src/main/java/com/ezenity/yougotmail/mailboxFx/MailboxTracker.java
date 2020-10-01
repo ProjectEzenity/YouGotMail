@@ -23,7 +23,7 @@ public class MailboxTracker {
      *
      * @param mailbox mailbox to be set
      */
-    public void registerTracker(Mailbox mailbox) {
+    public void register(Mailbox mailbox) {
         if (mailbox != null) {
             this.mailbox.put(mailbox.getIdentifier(), mailbox);
         }
@@ -34,7 +34,7 @@ public class MailboxTracker {
      *
      * @param mailbox mailbox to be removed
      */
-    public void unregisterTracker(Mailbox mailbox) {
+    public void unregister(Mailbox mailbox) {
         if (mailbox != null) {
             this.mailbox.remove(mailbox.getIdentifier());
         }
@@ -42,12 +42,12 @@ public class MailboxTracker {
 
     /**
      * This method will get the mailbox that is uniquely identified with
-     * the given registeredIdentifier.
+     * the given identifier.
      *
-     * @param registeredIdentifier registeredIdentifier
+     * @param identifier identifier
      * @return unique mailbox
      */
-    public Mailbox getRegisteredTracker(UUID registeredIdentifier) {
-        return mailbox.getOrDefault(registeredIdentifier, null);
+    public Mailbox getRegistered(UUID identifier) {
+        return mailbox.getOrDefault(identifier, null);
     }
 }

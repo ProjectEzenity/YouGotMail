@@ -102,7 +102,7 @@ public class Mailbox extends MailboxTracker {
      * @param mailbox remove the specified mailbox
      */
     public void despawnMailbox(Mailbox mailbox) {
-        unregisterTracker(mailbox);
+        unregister(mailbox);
     }
 
     /**
@@ -113,7 +113,7 @@ public class Mailbox extends MailboxTracker {
      * @param mailbox spawn the specified mailbox
      */
     public void spawnMailbox(Mailbox mailbox) {
-        registerTracker(mailbox);
+        register(mailbox);
     }
 
     /**
@@ -125,7 +125,7 @@ public class Mailbox extends MailboxTracker {
      * @param mailbox get mailbox that was clicked with its contents
      */
     public void openMailbox(Player player, Mailbox mailbox) {
-        if (getRegisteredTracker(getIdentifier()) != null )  {
+        if (getRegistered(getIdentifier()) != null )  {
 //            player.getInventory().setContents(getItemStackHashMap().get(mailbox));
             mailbox.getInventory().getTopInventory().setContents((ItemStack[]) getItemStackList().toArray());
 //            player.getInventory().setContents((ItemStack[]) getItemStackList().toArray());
@@ -149,6 +149,6 @@ public class Mailbox extends MailboxTracker {
     }
 
     public Mailbox getMailboxFromUUID(UUID uuid) {
-        return getRegisteredTracker(getIdentifier());
+        return getRegistered(getIdentifier());
     }
 }
