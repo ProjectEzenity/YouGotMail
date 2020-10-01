@@ -12,6 +12,9 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Custom inventory. This class extends {@link InventoryView} which will add custom
  * properties to add additions to the default given inventory view.
+ *
+ * @version 0.0.2
+ * @since 0.0.1
  */
 public class CustomInventory extends InventoryView {
     private Inventory inventory;
