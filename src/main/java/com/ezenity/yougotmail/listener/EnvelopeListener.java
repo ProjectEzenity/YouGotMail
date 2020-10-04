@@ -4,9 +4,7 @@ import com.ezenity.yougotmail.Main;
 import com.ezenity.yougotmail.conversations.GeneralPrompt;
 import com.ezenity.yougotmail.util.CustomInventory;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import static org.bukkit.Bukkit.getLogger;
@@ -105,7 +103,7 @@ public class EnvelopeListener implements Listener {
                         // Get items set inside envelop
                         CustomInventory customInventory = new CustomInventory(player, (InventoryHolder) player.getInventory().getItemInMainHand(), 6*9, "Envelope");
                         // Set items inside envelope inventory
-                        new LinkedList<>(Arrays.asList(customInventory.getTopInventory().getContents()));
+//                        new LinkedList<>(Arrays.asList(customInventory.getTopInventory().getContents()));
                         // Create seal envelope itemStack to click inside inventory
                         ItemStack sealEnvelope = new ItemStack(Material.NAME_TAG);
                         ItemMeta sealEnvelopeMeta = sealEnvelope.getItemMeta();
@@ -121,6 +119,10 @@ public class EnvelopeListener implements Listener {
                         customInventory.setItem(8, sealEnvelope);
                         // Check if "Seal" was clicked
                         if (inventoryClickEvent.getCurrentItem().hasItemMeta() && inventoryClickEvent.getCurrentItem().getItemMeta().getDisplayName().contains("Seal")) {
+                            // remove button inside envelope
+                            customInventory.setItem(8, null);
+                            // Store contents inside envelope
+                            customInventory.storeContents(customInventory.getTopInventory().getContents());
                             // Create sealed Envelope
                             player.updateInventory();
                             ItemStack sealedEnvelope = player.getInventory().getItemInMainHand();
@@ -134,11 +136,11 @@ public class EnvelopeListener implements Listener {
                             sealedEnvelopeMeta.setLore(sealedEnvelopeLore);
                             sealedEnvelope.setItemMeta(sealedEnvelopeMeta);
                             // Remove current item in main hand
-                            player.getInventory().getItemInMainHand().setAmount(-1);
+//                            player.getInventory().getItemInMainHand().setAmount(-1);
                             // Close inventory to seal it
                             player.closeInventory();
                             // Set sealed envelope in main hand
-                            player.getInventory().setItemInMainHand(sealedEnvelope);
+//                            player.getInventory().setItemInMainHand(sealedEnvelope);
                         }
                     }
                 }
