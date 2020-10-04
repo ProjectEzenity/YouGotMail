@@ -3,6 +3,7 @@ package com.ezenity.yougotmail;
 import com.ezenity.yougotmail.command.CmdReload;
 import com.ezenity.yougotmail.configuration.Config;
 import com.ezenity.yougotmail.configuration.Lang;
+import com.ezenity.yougotmail.listener.EnvelopeListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -24,6 +25,8 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         config.reload();
         lang.reload();
+
+        getServer().getPluginManager().registerEvents(new EnvelopeListener(this), this);
 
         getCommand("yougotmail").setExecutor(new CmdReload(config, lang));
     }
