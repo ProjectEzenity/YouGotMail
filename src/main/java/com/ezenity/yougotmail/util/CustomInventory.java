@@ -1,12 +1,16 @@
 package com.ezenity.yougotmail.util;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -23,6 +27,7 @@ public class CustomInventory extends InventoryView {
     private InventoryType inventoryType;
     private final int inventorySize;
     private final String inventoryTitle;
+    private final Map<Integer, ItemStack[]> items = new HashMap<>();
 
     /**
      * Custom Inventory. This will get a custom inventory with a inventory type of CHEST. This method will allow you to create the amount of columns
@@ -128,5 +133,20 @@ public class CustomInventory extends InventoryView {
     @Override
     public @NotNull String getTitle() {
         return inventoryTitle;
+    }
+
+    public void storeContents(ItemStack[] itemStacks) {
+//        items.put(Arrays.hashCode(itemStacks), itemStacks);
+
+        items.put(getTopInventory().hashCode(), itemStacks);
+    }
+
+    public void restoreContents(int itemStackHash) {
+        ItemStack[] storedContents = items.get(itemStackHash);
+
+        if (storedContents != null)
+            getTopInventory().setContents(storedContents);
+        else
+            getPlayer().sendMessage(ChatColor.AQUA + "Inventory is empty");
     }
 }
