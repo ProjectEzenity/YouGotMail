@@ -34,7 +34,7 @@ public class GeneralPrompt extends FixedSetPrompt {
                 conversationContext.getForWhom().sendRawMessage(ChatColor.DARK_RED + "Please set a envelope title first before sealing.");
                 return new EnvelopeTitlePrompt();
             }
-            return new EnvelopeSealedPrompt();
+            return new EnvelopeTitleConfirmedPrompt();
         }
         return END_OF_CONVERSATION;
     }

@@ -51,7 +51,7 @@ public class EnvelopeTitlePrompt extends ValidatingPrompt {
             conversationContext.setSessionData("envTitle", s); // save title in session storage
         }
 
-        return new EnvelopeSealedPrompt();
+        return new EnvelopeTitleConfirmedPrompt();
     }
 
     @Override  // Called when the prompt wil display text to the one in convo (Text to user)
