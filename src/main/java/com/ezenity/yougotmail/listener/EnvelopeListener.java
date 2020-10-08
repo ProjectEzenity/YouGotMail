@@ -25,11 +25,12 @@ import org.bukkit.inventory.meta.ItemMeta;
  * Envelope Listener
  *
  * @author Ezenity
- * @version 0.0.4
+ * @version 0.2.0
  * @since 0.0.4
  */
 public class EnvelopeListener implements Listener {
     private final ConversationFactory conversationFactory;
+    private CustomInventory customInventory;
 
     public EnvelopeListener(Main instance) {
         conversationFactory = new ConversationFactory(instance);
@@ -101,7 +102,8 @@ public class EnvelopeListener implements Listener {
                     // Check if Envelope is not sealed.
                     if (envelopeMeta.hasDisplayName() && envelopeMeta.getDisplayName().contains("Envelope") && !envelopeMeta.getDisplayName().contains("sealed")) {
                         // Get items set inside envelop
-                        CustomInventory customInventory = new CustomInventory(player, (InventoryHolder) player.getInventory().getItemInMainHand(), 6*9, "Envelope");
+//                        CustomInventory customInventory = new CustomInventory(player, (InventoryHolder) player.getInventory().getItemInMainHand(), 6*9, "Envelope");
+                        setCustomInventory(new CustomInventory(player, (InventoryHolder) player.getInventory().getItemInMainHand(), 6*9, player.getDisplayName() + "'s Envelope"));
                         // Set items inside envelope inventory
 //                        new LinkedList<>(Arrays.asList(customInventory.getTopInventory().getContents()));
                         // Create seal envelope itemStack to click inside inventory
@@ -123,6 +125,7 @@ public class EnvelopeListener implements Listener {
                             customInventory.setItem(8, null);
                             // Store contents inside envelope
                             customInventory.storeContents(customInventory.getTopInventory().getContents());
+                            customInventory.storeContents(customInventory.getTopInventory().getContents());
                             // Create sealed Envelope
                             player.updateInventory();
                             ItemStack sealedEnvelope = player.getInventory().getItemInMainHand();
@@ -135,8 +138,6 @@ public class EnvelopeListener implements Listener {
                             sealedEnvelopeLore.add("a custom envelope name");
                             sealedEnvelopeMeta.setLore(sealedEnvelopeLore);
                             sealedEnvelope.setItemMeta(sealedEnvelopeMeta);
-                            // Remove current item in main hand
-//                            player.getInventory().getItemInMainHand().setAmount(-1);
                             // Close inventory to seal it
                             player.closeInventory();
                             // Set sealed envelope in main hand
@@ -146,5 +147,9 @@ public class EnvelopeListener implements Listener {
                 }
             }
         }
+    }
+
+    public void setCustomInventory(CustomInventory customInventory) {
+        this.customInventory = customInventory;
     }
 }
