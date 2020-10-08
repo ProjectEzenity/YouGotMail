@@ -3,7 +3,6 @@ package com.ezenity.yougotmail.mailboxFx;
 import com.ezenity.yougotmail.util.CustomInventory;
 import java.util.List;
 import java.util.UUID;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  * Mailbox class which will handle created mailboxes.
  *
  * @author Ezenity
- * @version 0.0.3
+ * @version 0.2.0
  * @since 0.0.1
  */
 public class Mailbox extends MailboxTracker {
@@ -26,7 +25,6 @@ public class Mailbox extends MailboxTracker {
     /**
      * ItemStack Hashmap. This hash will key to a mailbox and value any items linked to the specified mailbox.
      */
-//    private HashMap<Mailbox, ItemStack[]> itemStackHashMap;
     private List<ItemStack> itemStackList;
 
     /**
@@ -58,24 +56,6 @@ public class Mailbox extends MailboxTracker {
         return inventory;
     }
 
-//    /**
-//     * Get the list of itemStacks that are within the mailbox
-//     *
-//     * @return all items inside mailbox
-//     */
-//    public HashMap<Mailbox, ItemStack[]> getItemStackHashMap() {
-//        return itemStackHashMap;
-//    }
-//
-//    /**
-//     * Set an itemStack into a given mailbox.
-//     *
-//     * @param itemStackHashMap set itemStack to mailbox
-//     */
-//    public void setItemStackHashMap(HashMap<Mailbox, ItemStack[]> itemStackHashMap) {
-//        this.itemStackHashMap = itemStackHashMap;
-//    }
-
     /**
      * Ge the list of itemStacks that are within the mailbox as a list.
      *
@@ -101,7 +81,7 @@ public class Mailbox extends MailboxTracker {
      *
      * @param mailbox remove the specified mailbox
      */
-    public void despawnMailbox(Mailbox mailbox) {
+    public void despawn(Mailbox mailbox) {
         unregister(mailbox);
     }
 
@@ -112,26 +92,10 @@ public class Mailbox extends MailboxTracker {
      *
      * @param mailbox spawn the specified mailbox
      */
-    public void spawnMailbox(Mailbox mailbox) {
-        register(mailbox);
-    }
-
-    /**
-     * Open Mailbox. This method will check for the mailbox identifier and get the items from the
-     * itemStack list. After the itemStacks are set to the looking mailbox, the players opened
-     * top inventory will update to ensure the itemStacks are set.
-     *
-     * @param player get the player who clicked the mailbox
-     * @param mailbox get mailbox that was clicked with its contents
-     */
-    public void openMailbox(Player player, Mailbox mailbox) {
-        if (getRegistered(getIdentifier()) != null )  {
-//            player.getInventory().setContents(getItemStackHashMap().get(mailbox));
-            mailbox.getInventory().getTopInventory().setContents((ItemStack[]) getItemStackList().toArray());
-//            player.getInventory().setContents((ItemStack[]) getItemStackList().toArray());
+    public void spawn(Mailbox mailbox) {
+        if (getRegistered(getIdentifier()) != null) {
+            register(mailbox);
         }
-
-        player.updateInventory(); // Not sure if this is needed
     }
 
     /**
@@ -140,7 +104,7 @@ public class Mailbox extends MailboxTracker {
      * @param title get mailbox string title
      * @return mailbox with contents or null if no mailbox with given string title
      */
-    public Mailbox getMailboxFromTitle(@NotNull String title) {
+    public Mailbox getFromTitle(@NotNull String title) {
         for (Mailbox mailbox : mailbox.values()) {
             if (mailbox.getInventory().getTitle().equals(title))
                 return mailbox;
@@ -148,7 +112,7 @@ public class Mailbox extends MailboxTracker {
         return null;
     }
 
-    public Mailbox getMailboxFromUUID(UUID uuid) {
+    public Mailbox getFromUUID(UUID uuid) {
         return getRegistered(getIdentifier());
     }
 }
