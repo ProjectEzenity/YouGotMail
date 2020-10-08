@@ -12,7 +12,7 @@ import java.io.File;
  * Here you will find all the default configuration options that are available with YouGotMail
  *
  * @author Ezenity
- * @version 0.0.2
+ * @version 0.2.1
  * @since 0.0.1
  */
 public class Config {
@@ -21,11 +21,6 @@ public class Config {
      * Plugin variable.
      */
     private final Main plugin;
-
-    /**
-     * Configuration File. Gets the default plugin folder and creates a new config file from the default provided config file with comments.
-     */
-    private final File configFile = new File(getPlugin().getDataFolder(), "config.yml");
 
     /**
      * Config file configuration. This is used for creating the files settings general speaking.
@@ -69,6 +64,8 @@ public class Config {
      * Another thing to note is that this will not overwrite the comments that are set inside a config file.
      */
     public void reload() {
+        final File configFile = new File(getPlugin().getDataFolder(), "config.yml");
+
         if (!configFile.exists())
             plugin.saveResource("config.yml", false);
 
