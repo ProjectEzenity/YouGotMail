@@ -3,7 +3,6 @@ package com.ezenity.yougotmail.util;
 import java.util.HashMap;
 import java.util.Map;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -17,7 +16,8 @@ import org.jetbrains.annotations.NotNull;
  * Custom inventory. This class extends {@link InventoryView} which will add custom
  * properties to add additions to the default given inventory view.
  *
- * @version 0.0.2
+ * @author Ezenity
+ * @version 0.2.0
  * @since 0.0.1
  */
 public class CustomInventory extends InventoryView {
@@ -136,17 +136,15 @@ public class CustomInventory extends InventoryView {
     }
 
     public void storeContents(ItemStack[] itemStacks) {
-//        items.put(Arrays.hashCode(itemStacks), itemStacks);
-
         items.put(getTopInventory().hashCode(), itemStacks);
     }
 
-    public void restoreContents(int itemStackHash) {
-        ItemStack[] storedContents = items.get(itemStackHash);
+    public ItemStack[] restoreContents() {
+        ItemStack[] storedContents = items.get(getTopInventory().hashCode());
 
         if (storedContents != null)
-            getTopInventory().setContents(storedContents);
+            return storedContents;
         else
-            getPlayer().sendMessage(ChatColor.AQUA + "Inventory is empty");
+            return null;
     }
 }
