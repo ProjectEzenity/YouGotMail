@@ -1,19 +1,4 @@
-name: "${project.artifactId}"
-main: "${project.groupId}.Main"
-version: "${project.version}"
-description: "${project.description} Coming Soon."
+name: "YouGotMail"
+version: "0.3.0"
 author: "Ezenity"
-depend: []
-softdepend: []
-
-api-version: "1.15"
-
-commads:
-  yougotmail:
-    description: Reload command for plugin.
-    usage: /<command> (arguments)
-
-permissions:
-  command.yougotmail.reload:
-    description: Allows you to reload the configuration files.
-    default: op
+main: "com.ezenity.yougotmail.Main"
